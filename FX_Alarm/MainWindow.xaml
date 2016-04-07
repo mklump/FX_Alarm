@@ -1,0 +1,281 @@
+﻿<Window x:Class="FX_Alarm.MainWindow"
+        xmlns:fx="clr-namespace:FX_Alarm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="FX Alert Tool"
+        Width="1068" MinWidth="1068" Height="542" MinHeight="542" ResizeMode="CanResizeWithGrip">
+    <Window.DataContext>
+        <fx:MainViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <fx:StringAddressToUriConverter x:Key="StringAddressToUriConverter" />
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="4" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left">
+            <Grid Height="80" MinHeight="80">
+                <Border BorderBrush="Black" BorderThickness="2" Width="600">
+                    <Grid>
+                        <StackPanel Orientation="Vertical" Width="290" MinWidth="290" HorizontalAlignment="Left">
+                            <Image x:Name="imgRedArrow" Source="image/GBPCHF_redarrow.jpg" Margin="1,0,1,0" />
+                            <TextBlock Text="FX Alert Tool" FontSize="26" Margin="5,3" Height="30" FontFamily="Arial Black" />
+                            <Image x:Name="imgGreenArrow" Source="image/CHFJPY_greenarrow.jpg" Margin="1,0,1,0" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="290,0,0,0" >
+                            <Border BorderBrush="Black" BorderThickness="2" Margin="2">
+                                <StackPanel Orientation="Horizontal" Height="70">
+                                    <StackPanel Orientation="Vertical" Height="66" Width="215" Margin="2,1,0,0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="lblUN" Text="User Name: " FontSize="13" Width="68" Margin="0,0,3,0" />
+                                            <TextBox x:Name="txtUN" Height="21" Width ="142" AllowDrop="False" ToolTip="Enter username. It will not be saved."
+                                                     Text="pipsforheaven@klump-pdx.com"/> <!-- TODO: REMOVE THIS TEXT PROPERTY AFTER DEBUGGING -->
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="lblPW" Text="Password: " FontSize="14" Width="68" Margin="0,0,3,0" />
+                                            <PasswordBox x:Name="pwBox" FontSize="14" Height="21" Width ="142" AllowDrop="False" ToolTip="Enter password. It will not be saved."
+                                                         Password="help4357"/> <!-- TODO: REMOVE THIS PASSWORD PROPERTY AFTER DEBUGGING -->
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="lblLogStat" Text="Login Status: " FontSize="12" Width="68" Margin="0,2,3,0"/>
+                                            <TextBox IsReadOnly="True" x:Name="txtLogStat" Text="{Binding Path=LoginStatus, UpdateSourceTrigger=PropertyChanged}" Height="21" Width ="142" ToolTip="{Binding Path=LoginStatus, UpdateSourceTrigger=PropertyChanged}" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical" Height="66" Width="81" VerticalAlignment="Top">
+                                        <Button x:Name="btnLogin" Command="{Binding Path=commandLogin}" Content="{Binding Path=LoginLabel, UpdateSourceTrigger=PropertyChanged}" FontSize="12" Width="75" Height="38" HorizontalAlignment="Left" Margin="3,2,0,0" VerticalAlignment="Top" />
+                                        <Button x:Name="btnAbout" Command="{Binding Path=commandAbout}" FontSize="12" Width="75" Height="24" HorizontalAlignment="Left" Margin="3,2,0,0" VerticalAlignment="Top" Content="About..."/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+            <Grid MinWidth="600" MinHeight="385" VerticalAlignment="Top">
+                <Border BorderBrush="Black" BorderThickness="1">
+                    <StackPanel Orientation="Vertical">
+                        <Grid Margin="13,4,13,0" >
+                            <StackPanel Orientation="Vertical" MinHeight="56" VerticalAlignment="Top">
+                                <Border Height="28" HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="1">
+                                    <StackPanel Orientation="Horizontal" Margin="2">
+                                        <TextBlock Text="First email:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="77" FontSize="12" Margin="2,2"/>
+                                        <TextBox x:Name="txtEmail1" Text="Enter first alert email address." HorizontalAlignment="Left"  VerticalAlignment="Top"
+    											MinWidth="257" FontSize="12" Height="22" Margin="1.5,0">
+                                            <TextBox.ToolTip>
+                                                <TextBlock><Run Text="This textbox represents the first email address to send your alert to. To send an"/><LineBreak /><Run Text="alert to a cell phone: Enter the email address for your wireless cell phone carrier."/><LineBreak /><Run Text="Example: 9999999999@wirelesscarrier.com"/></TextBlock>
+                                            </TextBox.ToolTip>
+                                        </TextBox>
+                                    </StackPanel>
+                                </Border>
+                                <Border Height="28" HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="1">
+                                    <StackPanel Orientation="Horizontal" Margin="2">
+                                        <TextBlock Text="Second email:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="77" FontSize="12" Margin="2,2"/>
+                                        <TextBox x:Name="txtEmail2" Text="Enter second alert email address." HorizontalAlignment="Left" VerticalAlignment="Top"
+    											MinWidth="257" FontSize="12" Height="22" Margin="1.5,0">
+                                            <TextBox.ToolTip>
+                                                <TextBlock><Run Text="This textbox represents the second email address to send your alert to. To send an"/><LineBreak /><Run Text="alert to a cell phone: Enter the email address for your wireless cell phone carrier."/><LineBreak /><Run Text="Example: 9999999999@wirelesscarrier.com"/></TextBlock>
+                                            </TextBox.ToolTip>
+                                        </TextBox>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                            <Button x:Name="btnSettings" Command="{Binding SettingsCommand}" Margin="508,2,0,0" Width="65" Height="54" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <TextBlock TextAlignment="Center"><Run Text="Save"/><LineBreak /><Run Text="Settings"/></TextBlock>
+                            </Button>
+                            <StackPanel Orientation="Vertical" Margin="358,1.5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Border BorderBrush="Black" BorderThickness="1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Toggle Alert Sound: " TextWrapping="NoWrap" HorizontalAlignment="Left" Margin="6,1,0,0" VerticalAlignment="Center" Height="18" Width="107" FontSize="12"  />
+                                        <CheckBox x:Name="chkAlertSound" IsChecked="True" Margin="6"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border BorderBrush="Black" BorderThickness="1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Toggle Screen Alert: " TextWrapping="NoWrap" HorizontalAlignment="Left" Margin="6,1,0,0" VerticalAlignment="Center" Height="18" Width="107" FontSize="12"  />
+                                        <CheckBox x:Name="chkAlertScreen" IsChecked="True" Margin="6"/>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+                        <StackPanel Orientation="Horizontal" MinHeight="314">
+                            <Border BorderBrush="Black" BorderThickness="1" Width="115" Margin="11,8,0,0">
+                                <StackPanel Orientation="Vertical">
+                                    <RadioButton x:Name="radioG8Select" GroupName="RadioGroup" Margin="4,20,38,0" IsChecked="True">
+                                        <RadioButton.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+                                            </TransformGroup>
+                                        </RadioButton.RenderTransform>
+                                        <TextBlock TextWrapping="Wrap" Text="G8 Currency Alert Selection" />
+                                    </RadioButton>
+                                    <RadioButton x:Name="radioIndividualSelect" GroupName="RadioGroup" Margin="4,80,38,0" IsChecked="False">
+                                        <RadioButton.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+                                            </TransformGroup>
+                                        </RadioButton.RenderTransform>
+                                        <TextBlock TextWrapping="Wrap" Text="Individual Currency Alert Selection" />
+                                    </RadioButton>
+                                </StackPanel>
+                            </Border>
+                            <StackPanel Orientation="Vertical" Margin="4,8,0,0">
+                                <Border BorderBrush="Black" BorderThickness="1" Width="458" Height="133">
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top">
+                                            <TextBlock TextWrapping="Wrap" Text="Currency Threshold:" Margin="4,4,4,0" />
+                                            <Slider x:Name="currencyThreshold" Orientation="Horizontal" IsSnapToTickEnabled="True" Maximum="0.30" Minimum="0.26"
+    												TickPlacement="BottomRight" AutoToolTipPlacement="BottomRight" TickFrequency="0.01" AutoToolTipPrecision="2"
+    												IsDirectionReversed="False" IsSelectionRangeEnabled="False" IsMoveToPointEnabled="False" Width="300"
+    												Height="25" MinHeight="25" />
+                                            <TextBox x:Name="txtCurrencyThreshold" IsReadOnly="True" Width="40" Text="0.26%" Margin="0,2,0,0" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Width="210" MinWidth="210" HorizontalAlignment="Left" Margin="8,10,8,0">
+                                            <StackPanel.RenderTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                                                </TransformGroup>
+                                            </StackPanel.RenderTransform>
+                                            <CheckBox x:Name="USD" Content="USD" Margin="6,0,6,0" />
+                                            <CheckBox x:Name="CAD" Content="CAD" Margin="6,0,6,0" />
+                                            <CheckBox x:Name="EUR" Content="EUR" Margin="6,0,6,0" />
+                                            <CheckBox x:Name="GBP" Content="GBP" Margin="6,0,6,0" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Width="210" HorizontalAlignment="Left" Margin="8,30,8,0">
+                                            <StackPanel.RenderTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                                                </TransformGroup>
+                                            </StackPanel.RenderTransform>
+                                            <CheckBox x:Name="JPY" Content="JPY" Margin="6,0,6,0" />
+                                            <CheckBox x:Name="CHF" Content="CHF" Margin="6,0,6,0" />
+                                            <CheckBox x:Name="AUD" Content="AUD" Margin="6,0,6,0" />
+                                            <CheckBox x:Name="NZD" Content="NZD" Margin="6,0,6,0" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                                <Border BorderBrush="Black" BorderThickness="1" Width="458" Margin="0,4,0,0">
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top">
+                                            <TextBlock TextWrapping="Wrap" Text="Indiv. Pair Threshold:" Margin="4,4,4,0" />
+                                            <Slider x:Name="indivPairThreshold"  Orientation="Horizontal" IsSnapToTickEnabled="True" Maximum="0.30" Minimum="0.26"
+    												TickPlacement="BottomRight" AutoToolTipPlacement="BottomRight" TickFrequency="0.01" AutoToolTipPrecision="2"
+    												IsDirectionReversed="False" IsSelectionRangeEnabled="False" IsMoveToPointEnabled="False" Width="295"
+    												Height="25" MinHeight="25" />
+                                            <TextBox x:Name="txtIndivPairThreshold" IsReadOnly="True" Width="40" Text="0.26%" Margin="0,2,0,0" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Width="440" MinWidth="440" HorizontalAlignment="Left" Margin="4,10,8,0">
+                                            <StackPanel.RenderTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform ScaleX="1.06" ScaleY="1.06" />
+                                                </TransformGroup>
+                                            </StackPanel.RenderTransform>
+                                            <CheckBox x:Name="EURUSD" Content="EUR/USD" Margin="2,0,2,0" />
+                                            <CheckBox x:Name="GBPUSD" Content="GBP/USD" Margin="2,0,2,0" />
+                                            <CheckBox x:Name="USDJPY" Content="USD/JPY" Margin="2,0,2,0" />
+                                            <CheckBox x:Name="USDCAD" Content="USD/CAD" Margin="2,0,2,0" />
+                                            <CheckBox x:Name="USDCHF" Content="USD/CHF" Margin="2,0,2,0" />
+                                            <CheckBox x:Name="AUDUSD" Content="AUD/USD" Margin="2,0,2,0" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Width="440" MinWidth="440" HorizontalAlignment="Left" Margin="4,10,8,0">
+                                            <StackPanel.RenderTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform ScaleX="1.06" ScaleY="1.06" />
+                                                </TransformGroup>
+                                            </StackPanel.RenderTransform>
+                                            <CheckBox x:Name="NZDUSD" Content="NZD/USD" Margin="2,0,2,0" />
+                                            <CheckBox x:Name="EURGBP" Content="EUR/GBP" Margin="2,0,2,0" />
+                                            <CheckBox x:Name="EURJPY" Content="EUR/JPY" Margin="2,0,2,0" />
+                                            <CheckBox x:Name="EURCHF" Content="EUR/CHF" Margin="2,0,2,0" />
+                                            <CheckBox x:Name="EURCAD" Content="EUR/CAD" Margin="2,0,2,0" />
+                                            <CheckBox x:Name="EURAUD" Content="EUR/AUD" Margin="2,0,2,0" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Width="440" MinWidth="440" HorizontalAlignment="Left" Margin="4,10,8,0">
+                                            <StackPanel.RenderTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform ScaleX="1.06" ScaleY="1.06" />
+                                                </TransformGroup>
+                                            </StackPanel.RenderTransform>
+                                            <CheckBox x:Name="EURNZD" Content="EUR/NZD" Margin="3,0,3,0" />
+                                            <CheckBox x:Name="GBPJPY" Content="GBP/JPY" Margin="3,0,3,0" />
+                                            <CheckBox x:Name="AUDJPY" Content="AUD/JPY" Margin="3,0,3,0" />
+                                            <CheckBox x:Name="CHFJPY" Content="CHF/JPY" Margin="3,0,3,0" />
+                                            <CheckBox x:Name="NZDJPY" Content="NZD/JPY" Margin="3,0,3,0" />
+                                            <CheckBox x:Name="CADJPY" Content="CAD/JPY" Margin="3,0,3,0" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Width="440" MinWidth="440" HorizontalAlignment="Left" Margin="4,10,8,0">
+                                            <StackPanel.RenderTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform ScaleX="1.06" ScaleY="1.06" />
+                                                </TransformGroup>
+                                            </StackPanel.RenderTransform>
+                                            <CheckBox x:Name="GBPNZD" Content="GBP/NZD" Margin="2,0,1,0" />
+                                            <CheckBox x:Name="GBPCAD" Content="GBP/CAD" Margin="2,0,1,0" />
+                                            <CheckBox x:Name="GBPAUD" Content="GBP/AUD" Margin="2,0,1,0" />
+                                            <CheckBox x:Name="GBPCHF" Content="GBP/CHF" Margin="2,0,1,0" />
+                                            <CheckBox x:Name="AUDCHF" Content="AUD/CHF" Margin="2,0,1,0" />
+                                            <CheckBox x:Name="AUDCAD" Content="AUD/CAD" Margin="2,0,1,0" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Width="440" MinWidth="440" HorizontalAlignment="Left" Margin="4,10,8,12">
+                                            <StackPanel.RenderTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform ScaleX="1.06" ScaleY="1.06" />
+                                                </TransformGroup>
+                                            </StackPanel.RenderTransform>
+                                            <CheckBox x:Name="AUDNZD" Content="AUD/NZD" Margin="2,0,1,0" />
+                                            <CheckBox x:Name="NZDCAD" Content="NZD/CAD" Margin="2,0,1,0" />
+                                            <CheckBox x:Name="NZDCHF" Content="NZD/CHF" Margin="2,0,1,0" />
+                                            <CheckBox x:Name="CADCHF" Content="CAD/CHF" Margin="2,0,1,0" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+        <GridSplitter Grid.Column="1" Width="4" HorizontalAlignment="Stretch" />
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="4" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1" Margin="4,4,0,0" HorizontalAlignment="Left">
+                <StackPanel Orientation="Vertical">
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="14,10,14,6">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="FX Alert URL:" Margin="4,7,1,0" FontSize="12" />
+                            <TextBox x:Name="txtFXAlertUrl" IsReadOnly="True" Text="{Binding Path=FXAlertSite, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="2,4,4,4"
+            							FontSize="12" MinHeight="22" MinWidth="300" ToolTip="This textbox represents the current found FX Alert URL." />
+                        </StackPanel>
+                    </Border>
+                    <Border Height="32" BorderBrush="Black" BorderThickness="1" Margin="14,0,0,14" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="btnRefreshNow" Command="{Binding commandRefresh}" Content="Refresh Now" Margin="15,4,0,4" MinHeight="22" MinWidth="150" FontSize="12" IsEnabled="False" />
+                            <TextBlock Text="Refresh Continuously: " Margin="15,1,0,0" Height="18" FontSize="12" />
+                            <CheckBox x:Name="chkRefreshContinous" Margin="4,1,15,0" Width="14" Height="14" ToolTip="Keep checked to refresh continuously each 7 seconds."
+                                      IsChecked="{Binding Path=IsRefreshOn, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True, IsAsync=True, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" IsEnabled="False" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+            <GridSplitter Grid.Row="1" Height="4" HorizontalAlignment="Stretch" />
+            <Border Grid.Row="2"  BorderBrush="Black" BorderThickness="1" Margin="4,4,15,15">
+                <WebBrowser x:Name="browserFXAlert"
+            				ScrollViewer.CanContentScroll="True"
+            				ScrollViewer.HorizontalScrollBarVisibility="Auto"
+            				ScrollViewer.VerticalScrollBarVisibility="Visible"
+                            AllowDrop="False"
+                            fx:WebBrowserUtility.BindableSource="{Binding ElementName=txtFXAlertUrl, Path=Text,
+                                Converter={StaticResource StringAddressToUriConverter},
+                                BindsDirectlyToSource=True, IsAsync=True, NotifyOnTargetUpdated=True}"
+                            ></WebBrowser>
+                                <!-- ValidationRules={Binding Path=UriRule, UpdateSourceTrigger=PropertyChanged}, -->
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

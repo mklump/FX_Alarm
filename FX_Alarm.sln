@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B1249C15-8E61-4B66-AFEB-69F0D098AE66}"
+	ProjectSection(SolutionItems) = preProject
+		FX_Alarm.vsmdi = FX_Alarm.vsmdi
+		lastFXAlertPage.html = lastFXAlertPage.html
+		Local.testsettings = Local.testsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FX_Alarm", "FX_Alarm\FX_Alarm.csproj", "{F7EB3ED9-FA28-432B-9B6A-87570509FA40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessFXAlarm_WebTest", "AccessFXAlarm_WebTest\AccessFXAlarm_WebTest.csproj", "{AA45539E-E43D-4B84-AC1F-A4AAB0C68B92}"
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = FX_Alarm.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7EB3ED9-FA28-432B-9B6A-87570509FA40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7EB3ED9-FA28-432B-9B6A-87570509FA40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7EB3ED9-FA28-432B-9B6A-87570509FA40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7EB3ED9-FA28-432B-9B6A-87570509FA40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA45539E-E43D-4B84-AC1F-A4AAB0C68B92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA45539E-E43D-4B84-AC1F-A4AAB0C68B92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA45539E-E43D-4B84-AC1F-A4AAB0C68B92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA45539E-E43D-4B84-AC1F-A4AAB0C68B92}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

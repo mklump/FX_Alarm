@@ -56,7 +56,7 @@ namespace FX_Alarm
             request3.Headers.Add(new WebTestRequestHeader("Referer", (this.Context["WebServer1"].ToString() + "/login.php")));
             FormPostHttpBody request3Body = new FormPostHttpBody();
             request3Body.FormPostParameters.Add("vchEmail", "pipsforheaven@klump-pdx.com");
-            request3Body.FormPostParameters.Add("vchPassword", "help4357");
+            request3Body.FormPostParameters.Add("vchPassword", "");
             request3Body.FormPostParameters.Add("x", "26");
             request3Body.FormPostParameters.Add("y", "15");
             request3.Body = request3Body;
